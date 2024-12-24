@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokasi Anda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .location-info {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .location-info p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detail Lokasi Anda</h1>
+    <div class="location-info">
+        {% if location.error %}
+            <p><strong>Error:</strong> {{ location.error }}</p>
+        {% else %}
+            <p><strong>Negara:</strong> {{ location.country }}</p>
+            <p><strong>Wilayah:</strong> {{ location.region }}</p>
+            <p><strong>Kota:</strong> {{ location.city }}</p>
+            <p><strong>Kode Pos:</strong> {{ location.zip }}</p>
+            <p><strong>Koordinat:</strong> {{ location.latitude }}, {{ location.longitude }}</p>
+            <p><strong>ISP:</strong> {{ location.isp }}</p>
+            <p><strong>Organisasi:</strong> {{ location.organization }}</p>
+            <p><strong>AS:</strong> {{ location.as }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
