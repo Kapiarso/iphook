@@ -1,45 +1,42 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lokasi Anda</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        .location-info {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .location-info p {
-            margin: 10px 0;
-        }
-    </style>
+    <title>Qiblat Direction</title>
 </head>
 <body>
-    <h1>Detail Lokasi Anda</h1>
-    <div class="location-info">
-        {% if location.error %}
-            <p><strong>Error:</strong> {{ location.error }}</p>
-        {% else %}
-            <p><strong>Negara:</strong> {{ location.country }}</p>
-            <p><strong>Wilayah:</strong> {{ location.region }}</p>
-            <p><strong>Kota:</strong> {{ location.city }}</p>
-            <p><strong>Kode Pos:</strong> {{ location.zip }}</p>
-            <p><strong>Koordinat:</strong> {{ location.latitude }}, {{ location.longitude }}</p>
-            <p><strong>ISP:</strong> {{ location.isp }}</p>
-            <p><strong>Organisasi:</strong> {{ location.organization }}</p>
-            <p><strong>AS:</strong> {{ location.as }}</p>
-        {% endif %}
-    </div>
+    <h1>Calculate Qiblat Direction</h1>
+    <form id="qiblatForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude"><br><br>
+
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+        document.getElementById("qiblatForm").addEventListener("submit", function(event){
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var latitude = document.getElementById("latitude").value;
+            var longitude = document.getElementById("longitude").value;
+
+            var url = `http://<your-python-api-url>/get_qiblat?name=${name}&latitude=${latitude}&longitude=${longitude}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerHTML = `Hello ${data.name}, the Qiblat direction is: ${data.qiblat} degrees from North.`;
+                });
+        });
+    </script>
 </body>
 </html>
