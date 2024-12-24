@@ -36,11 +36,11 @@
 
 <?php
 $servername = "localhost";
-$username = "username";
-$password = "password";
+$username = "root";
+$password = "";
 
 // Create connection
-$conn = new mysqli($myDB, $username, $password);
+$conn = new mysqli($localhost, $username, $password);
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
